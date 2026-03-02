@@ -98,7 +98,7 @@
     </header>
 
     <!-- Hero -->
-    <section class="hero-container my-10 flex justify-between gap-10 items-center">
+    <section class="hero-container my-10 flex flex-col-reverse text-center  md:flex-row md:text-left justify-between gap-10 items-center">
       <div class="hero-left w-100%">
         <h2 class="text-5xl font-bold mb-8"><span class="text-5xl font-bold text-sky-400">English </span>is Easy!!</h2>
         <p class="text-bangla mb-7">
@@ -107,14 +107,18 @@
           অন্য একটি Level এ
         </p>
         <form class="space-y-5 py-2" action="">
-          <input class="border-gray-300 rounded-md block" type="text" name="name" placeholder="Enter Your Name" id="" />
-          <input class="border-gray-300 rounded-md
-            type="password"
-            name="password"
-            placeholder="***********"
-            id=""
-          />
-          <button class="btn btn-primary block" type="submit">Get Started</button>
+          <input class="border-gray-300 rounded-md inline-block py-2.25 px-3" type="text" name="name" placeholder="Enter Your Name" id="" />
+          <div>
+            <input class="border-gray-300 rounded-md py-2.25 px-3
+              type="password"
+              name="password"
+              placeholder="***********"
+              id=""
+            />
+          </div>
+          <div>
+            <button class="btn btn-primary" type="submit">Get Started</button>
+          </div>
         </form>
       </div>
       <div class="hero-right w-100%">
