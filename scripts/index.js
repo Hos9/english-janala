@@ -17,6 +17,28 @@ const displayLevelWord = (words) => {
   const wordContainer = document.getElementById("word-container");
   wordContainer.innerHTML = "";
 
+  if (words.length == 0) {
+    wordContainer.innerHTML = `
+    <div class="lesson-select py-16 text-center bg-base-200 col-span-full space-y-4">
+        <img class="mx-auto" src="./assets/alert-error.png" alt="" />
+        <p class="mb-3">
+          <span class="text-bangla text-lg text-gray-400">এই </span
+          ><span class="text-lg text-gray-400">Lesson </span>
+          <span class="text-bangla text-lg text-gray-400">এ এখনো কোন</span>
+          <span class="text-lg text-gray-400">Vocabulary</span>
+          <span class="text-bangla text-lg text-gray-400">যুক্ত করা হয়নি।</span>
+        </p>
+        <h2 class="font-bold">
+          <span class="text-bangla text-5xl">নেক্সট </span
+          ><span class="text-5xl">Lesson </span
+          ><span class="text-bangla text-5xl">এ যান।</span>
+        </h2>
+      </div>
+  
+    `;
+    return;
+  }
+
   // 2. get each data
   words.forEach((word) => {
     // 3. create element
