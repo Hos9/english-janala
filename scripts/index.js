@@ -56,7 +56,7 @@ const displayLessons = (lessons) => {
         </button>
 `;
     // 4. append Child in parent
-    levelContainer.appendChild(btnDiv);
+    levelContainer.append(btnDiv);
   });
 };
 
