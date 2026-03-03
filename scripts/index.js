@@ -4,6 +4,40 @@ const loadLessons = () => {
     .then((json) => displayLessons(json.data));
 };
 
+const loadLevelWord = (id) => {
+  const url = `https://openapi.programming-hero.com/api/level/${id}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayLevelWord(data.data));
+};
+
+const displayLevelWord = (words) => {
+  //   console.log(words);
+  // 1. get container
+  const wordContainer = document.getElementById("word-container");
+  wordContainer.innerHTML = "";
+
+  // 2. get each data
+  words.forEach((word) => {
+    // 3. create element
+    const card = document.createElement("div");
+    card.innerHTML = `
+      <div id="" class="bg-white p-10 text-center space-y-6 rounded-xl shadow-md h-full">
+        <h2 class="text-3xl font-bold">${word.word}</h2>
+        <p class="text-lg">Meaning /Pronunciation</p>
+        <h2 class="text-bangla text-3xl font-semibold text-[#18181B]">"${word.meaning} / ${word.pronunciation}"</h2>
+        <div class="flex justify-between ">
+          <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+          <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
+        </div>
+      </div>
+    
+    `;
+    // 4. append to parent
+    wordContainer.append(card);
+  });
+};
+
 const displayLessons = (lessons) => {
   console.log(lessons);
 
@@ -17,9 +51,10 @@ const displayLessons = (lessons) => {
     // 3. create element
     const btnDiv = document.createElement("Div");
     btnDiv.innerHTML = `
-        <button class="btn btn-outline btn-primary">
+        <button onClick="loadLevelWord(${lesson.level_no})" class="btn btn-outline btn-primary">
         <i class="fa-solid fa-book-open"></i>Lesson - ${lesson.level_no}
-        </button>`;
+        </button>
+`;
     // 4. append Child in parent
     levelContainer.appendChild(btnDiv);
   });
