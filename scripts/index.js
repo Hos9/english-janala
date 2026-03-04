@@ -1,3 +1,18 @@
+const createElement = (arr) => {
+  const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
+  return htmlElements.join(" ");
+};
+
+const manageSpinner = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("word-container").classList.add("hidden");
+  } else {
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("word-container").classList.remove("hidden");
+  }
+};
+
 const loadLessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -11,6 +26,7 @@ const removeActive = () => {
 };
 
 const loadLevelWord = (id) => {
+  manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
   fetch(url)
     .then((res) => res.json())
@@ -29,12 +45,12 @@ const loadWordDetail = async (id) => {
   displayWordDetails(details.data);
 };
 const displayWordDetails = (word) => {
-  console.log(word);
+  // console.log(word);
   const detailsBox = document.getElementById("details-container");
   detailsBox.innerHTML = `
           <div>
             <h2 class="text-2xl font-bold">
-              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :${word.pronunciation})
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :  ${word.pronunciation})
             </h2>
           </div>
           <div>
@@ -47,9 +63,7 @@ const displayWordDetails = (word) => {
           </div>
           <div>
             <h2 class="text-bangla">সমার্থক শব্দ গুলো</h2>
-            <p class="btn btn-soft">${word.synonyms[0]}</p>
-            <p class="btn btn-soft">${word.synonyms[1]}</p>
-            <p class="btn btn-soft">${word.synonyms[2]}</p>
+            <div class="">${createElement(word.synonyms)}</div>
           </div>
   
   `;
@@ -81,7 +95,7 @@ const displayLevelWord = (words) => {
       </div>
   
     `;
-    return;
+    return manageSpinner(false);
   }
 
   // 2. get each data
@@ -103,10 +117,11 @@ const displayLevelWord = (words) => {
     // 4. append to parent
     wordContainer.append(card);
   });
+  manageSpinner(false);
 };
 
 const displayLessons = (lessons) => {
-  console.log(lessons);
+  // console.log(lessons);
 
   // 1. get the element & make empty
   const levelContainer = document.getElementById("level-container");
