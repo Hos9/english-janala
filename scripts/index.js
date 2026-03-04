@@ -22,6 +22,40 @@ const loadLevelWord = (id) => {
     });
 };
 
+const loadWordDetail = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/word/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayWordDetails(details.data);
+};
+const displayWordDetails = (word) => {
+  console.log(word);
+  const detailsBox = document.getElementById("details-container");
+  detailsBox.innerHTML = `
+          <div>
+            <h2 class="text-2xl font-bold">
+              ${word.word} (<i class="fa-solid fa-microphone-lines"></i> :${word.pronunciation})
+            </h2>
+          </div>
+          <div>
+            <h2 class="font-bold">Meaning</h2>
+            <p class="text-bangla">${word.meaning}</p>
+          </div>
+          <div>
+            <h2 class="font-bold">Example</h2>
+            <p>${word.sentence}</p>
+          </div>
+          <div>
+            <h2 class="text-bangla">সমার্থক শব্দ গুলো</h2>
+            <p class="btn btn-soft">${word.synonyms[0]}</p>
+            <p class="btn btn-soft">${word.synonyms[1]}</p>
+            <p class="btn btn-soft">${word.synonyms[2]}</p>
+          </div>
+  
+  `;
+  document.getElementById("word_modal").showModal();
+};
+
 const displayLevelWord = (words) => {
   //   console.log(words);
   // 1. get container
@@ -60,7 +94,7 @@ const displayLevelWord = (words) => {
         <p class="text-lg">Meaning /Pronunciation</p>
         <h2 class="text-bangla text-3xl font-semibold text-[#18181B]">"${word.meaning ? word.meaning : "অর্থ খুঁজে পাওয়া যায়নি"} / ${word.pronunciation ? word.pronunciation : "উচ্চারন খুঁজে পাওয়া যায়নি"}"</h2>
         <div class="flex justify-between ">
-          <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
+          <button onclick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
           <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
         </div>
       </div>
